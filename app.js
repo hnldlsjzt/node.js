@@ -25,7 +25,7 @@ const getPostData = (req) => {
       // 判空
       if (!postData) return resolve({});
 
-      return resolve(JSON.parse(postData));// 收到的已经是字符串JSON，需要解析
+      return resolve(JSON.parse(postData)); // 收到的已经是字符串JSON，需要解析
     });
   });
 };
@@ -48,12 +48,17 @@ const serverHandle = (req, res) => {
     res.setHeader("Content-type", "application/json");
     // blog相关路由处理
     if (blogRes) {
-      res.end(JSON.stringify(blogRes));
-      return;
+      blogRes.then((data) => {
+        res.end(JSON.stringify(data));
+      });
+      return; // 异步，防止then还没触发时，走到了404
     }
+
     //   user相关路由处理
     if (usersRes) {
-      res.end(JSON.stringify(usersRes));
+      usersRes.then((data) => {
+        res.end(JSON.stringify(data));
+      });
       return;
     }
     // 404相关

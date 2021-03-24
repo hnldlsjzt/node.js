@@ -15,12 +15,14 @@ const handleBlogRouter = (req, res) => {
   console.log("path", method, path, query, !query, id, body);
   //   list
   if (method === "GET" && path === "/api/blog/list") {
-    if (author && keyword) {
-      const data = getList(author, keyword);
-      return new SuccessModal(data, "请求成功");
-    } else {
-      return new ErrorModal({}, "请传入author与keyword");
-    }
+    // if (author && keyword) {
+    const result = getList(author, keyword);
+    console.log("result", result);
+    return result.then((res) => {
+      console.log("请求回来后", JSON.parse(JSON.stringify(res)));
+      console.log();
+      return new SuccessModal(res, "请求成功");
+    });
   }
 
   if (method === "GET" && path === "/api/blog/detail") {

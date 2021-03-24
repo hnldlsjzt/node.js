@@ -9,9 +9,10 @@ let MY_SQL;
 if (dev === "dev") {
   MY_SQL = {
     host: "localhost",
-    username: "root",
-    password: "zhangtao123",
+    user: "root",
+    password: "test",
     database: "myblog",
+    port: 3306,
   };
 }
 
