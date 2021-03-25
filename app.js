@@ -42,7 +42,7 @@ const serverHandle = (req, res) => {
     req.body = postData;
     const blogRes = handleBlogRouter(req, res);
     const usersRes = handleUsersRouter(req, res);
-    console.log("req", req.body, postData);
+    console.log("req", req.body, postData,blogRes,usersRes);
 
     // 设置响应头
     res.setHeader("Content-type", "application/json");

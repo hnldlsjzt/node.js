@@ -17,7 +17,7 @@ function exec(sql) {
   return new Promise((resolve, reject) => {
     con.query(sql, function (err, res) {
       if (err) {
-        return reject(err);
+        return resolve(err);
       }
       return resolve(res);
     });
