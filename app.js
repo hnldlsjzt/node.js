@@ -37,12 +37,23 @@ const serverHandle = (req, res) => {
   req.path = path;
   req.query = queryString.parse(query); // 解析query参数，返回格式为对象
 
+  req.cookieStr = req.headers.cookie || ""; // 获取cookic
+  req.cookie = {};
+
+  req.cookieStr.split(";").forEach((item) => {
+    if (item) {
+      const [key, value] = item.split("=");
+      req.cookie[key.trim()] = value.trim();
+    }
+  });
+  console.log("cookie", req.cookie);
   getPostData(req).then((postData) => {
     console.log("promise", postData);
     req.body = postData;
+
     const blogRes = handleBlogRouter(req, res);
     const usersRes = handleUsersRouter(req, res);
-    console.log("req", req.body, postData,blogRes,usersRes);
+    console.log("req", req.body, postData, blogRes, usersRes);
 
     // 设置响应头
     res.setHeader("Content-type", "application/json");
